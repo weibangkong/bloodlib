@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+	<!-- 配置驱动 需要填写绝对物理位置 -->
+ <classPathEntry location="F:\00-Eclipse\workspace\bloodlib\WebContent\WEB-INF\lib\mysql-connector-java-5.1.11-bin.jar"/>	
+  <context id="context1" >
+  	<commentGenerator>
+           <property name="suppressDate" value="true"/>  
+           <!-- 是否去除自动生成的注释 true：是 ： false:否 -->  
+           <property name="suppressAllComments" value="false"/>  
+	</commentGenerator>
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/bloodlib" userId="root" password="123456" />
+    <!-- 生成实体类 实体bean文件 -->	
+    <javaModelGenerator targetPackage="com.bloodlib.model" targetProject="bloodlib" />
+  	<!-- mapper xml文件 -->
+    <sqlMapGenerator targetPackage="com.bloodlib.dao" targetProject="bloodlib" />
+   	<!-- mapper 接口文件 -->
+    <javaClientGenerator targetPackage="com.bloodlib.dao" targetProject="bloodlib" type="XMLMAPPER" />
+   	 <table tableName="Role"></table>
+   	 <table tableName="hospital"></table>
+   	 <table tableName="bloodlib"></table>
+   	 <table tableName="police"></table>
+   </context>
+</generatorConfiguration>
+ 

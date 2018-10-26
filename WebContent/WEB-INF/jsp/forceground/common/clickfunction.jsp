@@ -1,0 +1,92 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<script type="text/javascript">
+var basePath='${pageContext.request.contextPath}/app/';
+//点击用户名
+//点击个人信息
+$('#id_a_userinfo').click(function(){
+	window.location.href=basePath+"fgnavi/myuserinfo";
+})
+//修改密码
+$('#id_a_updatepass').click(function(){
+	window.location.href=basePath+"fgnavi/updatepass";
+})
+//退出
+$('#id_a_loginout').click(function(){
+	
+	$.when($.post('${pageContext.request.contextPath}/app/login/loginout')).done(function(data){
+		if(data.success=="false"){
+			alert(data.msg);
+			window.location.href="${pageContext.request.contextPath}/app/login/index";
+		}else{
+			alert(data.msg);
+			window.location.href="${pageContext.request.contextPath}/app/login/index";
+		}
+	});		
+})
+
+//导航栏
+//点击首页
+$('#id_nav_firstpage').click(function(){
+	window.location.href="${pageContext.request.contextPath}/app/fgnavi/user/index";
+});
+//点击我的血型信息
+$('#id_nav_mybt').click(function(){
+	window.location.href=basePath+"fgnavi/updatemybloodType";
+});
+//跳转到附近到医院界面
+$('#id_nav_nearhospital').click(function(data){
+	window.location.href=basePath+"fgnavi/shownear/2";
+})
+//跳转到附近的血库界面
+$('#id_nav_nearbloodlib').click(function(data){
+	window.location.href=basePath+"fgnavi/shownear/3";
+})
+//点击导航中的发布新信息
+$('#id_nav_nb').click(function(){
+	window.location.href=basePath+"fgnavi/publishneedblood";
+});
+//导航中已发布的信息
+$('#id_nav_nblist').click(function(){
+	window.location.href=basePath+"fgnavi/nblist";
+});
+//我的血液存量
+$('#id_nav_mybs').click(function(){
+	window.location.href=basePath+"fgnavi/stockedit";
+})
+
+//快捷入口
+//点击发布新需血信息
+$('#id_nb_new').click(function(){
+	window.location.href=basePath+"fgnavi/publishneedblood";
+});
+//查看我发布的的需血信息系
+$('#id_nb_my').click(function(){
+	window.location.href=basePath+"fgnavi/nblist";
+});
+//查看我的血液库存
+$('#id_bs_my').click(function(){
+	window.location.href=basePath+"fgnavi/showstock";
+});
+//点击修改血液存量
+$('#id_bs_edit').click(function(){
+	window.location.href=basePath+"fgnavi/stockedit";
+});
+//点击创建血液存量
+$('#id_bs_add').click(function(){
+	window.location.href=basePath+"fgnavi/createstock";
+});
+//点击血型及匹配原则管理
+$('#id_bt_edit').click(function(){
+	window.location.href=basePath+"fgnavi/btmanage"
+});
+//预约献血
+$('#id_donate_new').click(function(){
+	window.location.href=basePath+"fgnavi/showapplydonate"
+});
+
+//预约管理
+$('#id_donate_manage').click(function(){
+	window.location.href=basePath+"fgnavi/donatemanage"
+});
+</script>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bloodlib.framework.mapper.AreaMapper">
+  <resultMap id="BaseResultMap" type="com.bloodlib.framework.model.Area">
+    <id column="Area_Id" jdbcType="BIGINT" property="areaId" />
+    <result column="Area_Name" jdbcType="VARCHAR" property="areaName" />
+    <result column="Parent_Area_Id" jdbcType="VARCHAR" property="parentAreaId" />
+    <result column="Short_Name" jdbcType="VARCHAR" property="shortName" />
+    <result column="Longitude" jdbcType="DECIMAL" property="longitude" />
+    <result column="latitude" jdbcType="DECIMAL" property="latitude" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Area_Id, Area_Name, Parent_Area_Id, Short_Name, Longitude, latitude
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from area
+    where Area_Id = #{areaId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from area
+    where Area_Id = #{areaId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bloodlib.framework.model.Area">
+    insert into area (Area_Id, Area_Name, Parent_Area_Id, 
+      Short_Name, Longitude, latitude
+      )
+    values (#{areaId,jdbcType=BIGINT}, #{areaName,jdbcType=VARCHAR}, #{parentAreaId,jdbcType=VARCHAR}, 
+      #{shortName,jdbcType=VARCHAR}, #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bloodlib.framework.model.Area">
+    insert into area
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="areaId != null">
+        Area_Id,
+      </if>
+      <if test="areaName != null">
+        Area_Name,
+      </if>
+      <if test="parentAreaId != null">
+        Parent_Area_Id,
+      </if>
+      <if test="shortName != null">
+        Short_Name,
+      </if>
+      <if test="longitude != null">
+        Longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="areaId != null">
+        #{areaId,jdbcType=BIGINT},
+      </if>
+      <if test="areaName != null">
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentAreaId != null">
+        #{parentAreaId,jdbcType=VARCHAR},
+      </if>
+      <if test="shortName != null">
+        #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bloodlib.framework.model.Area">
+    update area
+    <set>
+      <if test="areaName != null">
+        Area_Name = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentAreaId != null">
+        Parent_Area_Id = #{parentAreaId,jdbcType=VARCHAR},
+      </if>
+      <if test="shortName != null">
+        Short_Name = #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        Longitude = #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where Area_Id = #{areaId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bloodlib.framework.model.Area">
+    update area
+    set Area_Name = #{areaName,jdbcType=VARCHAR},
+      Parent_Area_Id = #{parentAreaId,jdbcType=VARCHAR},
+      Short_Name = #{shortName,jdbcType=VARCHAR},
+      Longitude = #{longitude,jdbcType=DECIMAL},
+      latitude = #{latitude,jdbcType=DECIMAL}
+    where Area_Id = #{areaId,jdbcType=BIGINT}
+  </update>
+</mapper>

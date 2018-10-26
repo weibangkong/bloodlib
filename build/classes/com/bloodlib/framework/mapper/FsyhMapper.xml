@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bloodlib.framework.mapper.FsyhMapper">
+  <resultMap id="BaseResultMap" type="com.bloodlib.framework.model.Fsyh">
+    <id column="Fsyh_Id" jdbcType="BIGINT" property="fsyhId" />
+    <result column="Is3A" jdbcType="INTEGER" property="is3a" />
+    <result column="IsHasBloodlib" jdbcType="INTEGER" property="ishasbloodlib" />
+    <result column="Blood_Type_Id" jdbcType="BIGINT" property="bloodTypeId" />
+    <result column="User_Id" jdbcType="BIGINT" property="userId" />
+    <result column="Safe_Stock" jdbcType="DECIMAL" property="safeStock" />
+  </resultMap>
+  <resultMap id="fsyh_user_btid_Map" type="java.lang.Long">
+  	 <result column="User_Id" jdbcType="BIGINT" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Fsyh_Id, Is3A, IsHasBloodlib, Blood_Type_Id, User_Id, Safe_Stock
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from fsyh
+    where Fsyh_Id = #{fsyhId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from fsyh
+    where Fsyh_Id = #{fsyhId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bloodlib.framework.model.Fsyh">
+    insert into fsyh (Fsyh_Id, Is3A, IsHasBloodlib, 
+      Blood_Type_Id, User_Id, Safe_Stock
+      )
+    values (#{fsyhId,jdbcType=BIGINT}, #{is3a,jdbcType=INTEGER}, #{ishasbloodlib,jdbcType=INTEGER}, 
+      #{bloodTypeId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{safeStock,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bloodlib.framework.model.Fsyh">
+    insert into fsyh
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fsyhId != null">
+        Fsyh_Id,
+      </if>
+      <if test="is3a != null">
+        Is3A,
+      </if>
+      <if test="ishasbloodlib != null">
+        IsHasBloodlib,
+      </if>
+      <if test="bloodTypeId != null">
+        Blood_Type_Id,
+      </if>
+      <if test="userId != null">
+        User_Id,
+      </if>
+      <if test="safeStock != null">
+        Safe_Stock,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fsyhId != null">
+        #{fsyhId,jdbcType=BIGINT},
+      </if>
+      <if test="is3a != null">
+        #{is3a,jdbcType=INTEGER},
+      </if>
+      <if test="ishasbloodlib != null">
+        #{ishasbloodlib,jdbcType=INTEGER},
+      </if>
+      <if test="bloodTypeId != null">
+        #{bloodTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="safeStock != null">
+        #{safeStock,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bloodlib.framework.model.Fsyh">
+    update fsyh
+    <set>
+      <if test="is3a != null">
+        Is3A = #{is3a,jdbcType=INTEGER},
+      </if>
+      <if test="ishasbloodlib != null">
+        IsHasBloodlib = #{ishasbloodlib,jdbcType=INTEGER},
+      </if>
+      <if test="bloodTypeId != null">
+        Blood_Type_Id = #{bloodTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        User_Id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="safeStock != null">
+        Safe_Stock = #{safeStock,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where Fsyh_Id = #{fsyhId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bloodlib.framework.model.Fsyh">
+    update fsyh
+    set Is3A = #{is3a,jdbcType=INTEGER},
+      IsHasBloodlib = #{ishasbloodlib,jdbcType=INTEGER},
+      Blood_Type_Id = #{bloodTypeId,jdbcType=BIGINT},
+      User_Id = #{userId,jdbcType=BIGINT},
+      Safe_Stock = #{safeStock,jdbcType=DECIMAL}
+    where Fsyh_Id = #{fsyhId,jdbcType=BIGINT}
+  </update>
+  <select id="getFsyhInfoByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	 select 
+  	 <include refid="Base_Column_List" />
+  	 from fsyh where User_Id = #{userId,jdbcType=BIGINT}
+  </select>
+   <select id="getUserIdlist" parameterType="java.lang.Long" resultMap="fsyh_user_btid_Map">
+  	 select User_Id
+  	 from fsyh 
+  	 where Blood_Type_Id = #{bloodTypeId,jdbcType=BIGINT}
+  </select>
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bloodlib.workflow.mapper.VUserFsyhBtMapper">
+  <resultMap id="BaseResultMap" type="com.bloodlib.workflow.model.VUserFsyhBt">
+    <result column="User_Id" jdbcType="BIGINT" property="userId" />
+    <result column="User_Name" jdbcType="VARCHAR" property="userName" />
+    <result column="Home_Address" jdbcType="VARCHAR" property="homeAddress" />
+    <result column="identity_Card" jdbcType="VARCHAR" property="identityCard" />
+    <result column="Tel" jdbcType="VARCHAR" property="tel" />
+    <result column="EMail" jdbcType="VARCHAR" property="email" />
+    <result column="Sex" jdbcType="INTEGER" property="sex" />
+    <result column="Area_Id" jdbcType="BIGINT" property="areaId" />
+    <result column="Login_Name" jdbcType="VARCHAR" property="loginName" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="Role_Id" jdbcType="BIGINT" property="roleId" />
+    <result column="Certificate_Type" jdbcType="INTEGER" property="certificateType" />
+    <result column="Certificate_Code" jdbcType="VARCHAR" property="certificateCode" />
+    <result column="Blood_Type_Id" jdbcType="BIGINT" property="bloodTypeId" />
+    <result column="Type1" jdbcType="VARCHAR" property="type1" />
+    <result column="Type2" jdbcType="VARCHAR" property="type2" />
+    <result column="Fsyh_Id" jdbcType="BIGINT" property="fsyhId" />
+    <result column="Is3A" jdbcType="INTEGER" property="is3a" />
+    <result column="IsHasBloodlib" jdbcType="INTEGER" property="ishasbloodlib" />
+  </resultMap>
+	<sql id="Base_Column_List">
+	User_Id,User_Name,Home_Address,identity_Card,Tel,EMail,Sex,Area_Id,Login_Name,
+	Password,Role_Id,Certificate_Type,Certificate_Code,Blood_Type_Id,Type1,Type2,Fsyh_Id,
+	Is3A,IsHasBloodlib
+	</sql>
+	<select id="getUserInfoByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from v_user_fsyh_bt where User_Id =#{userId,jdbcType=BIGINT}
+	</select>
+	
+	<select id="getUserInfoByFsyhId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from v_user_fsyh_bt where Fsyh_Id =#{fsyhId,jdbcType=BIGINT}
+	</select>
+	
+	<select id="getNearHospitalList" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from v_user_fsyh_bt where Role_Id = 2 and Area_Id = #{areaId,jdbcType=BIGINT}
+	</select>
+	
+	<select id="getNearBloodlibList" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from v_user_fsyh_bt where Role_Id = 3 and Area_Id = #{areaId,jdbcType=BIGINT}
+	</select>
+	
+	<select id="getNearList" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from v_user_fsyh_bt where Role_Id = #{0} and Area_Id = #{1}
+	</select>
+	
+	<select id="getStockUserList" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		from v_user_fsyh_bt where Role_Id IN (2,3)
+	</select>
+</mapper>

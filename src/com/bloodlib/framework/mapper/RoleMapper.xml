@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bloodlib.framework.mapper.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.bloodlib.framework.model.Role">
+    <id column="Role_Id" jdbcType="BIGINT" property="roleId" />
+    <result column="Role_Name" jdbcType="VARCHAR" property="roleName" />
+    <result column="Authority_Id" jdbcType="BIGINT" property="authorityId" />
+    <result column="Table_Name" jdbcType="VARCHAR" property="tableName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Role_Id, Role_Name, Authority_Id, Table_Name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where Role_Id = #{roleId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from role
+    where Role_Id = #{roleId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bloodlib.framework.model.Role">
+    insert into role (Role_Id, Role_Name, Authority_Id, 
+      Table_Name)
+    values (#{roleId,jdbcType=BIGINT}, #{roleName,jdbcType=VARCHAR}, #{authorityId,jdbcType=BIGINT}, 
+      #{tableName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bloodlib.framework.model.Role">
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        Role_Id,
+      </if>
+      <if test="roleName != null">
+        Role_Name,
+      </if>
+      <if test="authorityId != null">
+        Authority_Id,
+      </if>
+      <if test="tableName != null">
+        Table_Name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityId != null">
+        #{authorityId,jdbcType=BIGINT},
+      </if>
+      <if test="tableName != null">
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bloodlib.framework.model.Role">
+    update role
+    <set>
+      <if test="roleName != null">
+        Role_Name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityId != null">
+        Authority_Id = #{authorityId,jdbcType=BIGINT},
+      </if>
+      <if test="tableName != null">
+        Table_Name = #{tableName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Role_Id = #{roleId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bloodlib.framework.model.Role">
+    update role
+    set Role_Name = #{roleName,jdbcType=VARCHAR},
+      Authority_Id = #{authorityId,jdbcType=BIGINT},
+      Table_Name = #{tableName,jdbcType=VARCHAR}
+    where Role_Id = #{roleId,jdbcType=BIGINT}
+  </update>
+</mapper>

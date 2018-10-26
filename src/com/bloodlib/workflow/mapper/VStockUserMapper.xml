@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bloodlib.workflow.mapper.VStockUserMapper">
+  <resultMap id="BaseResultMap" type="com.bloodlib.workflow.model.VStockUser">
+    <result column="Blood_Stock_Id" jdbcType="BIGINT" property="bloodStockId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="blood_type_id" jdbcType="BIGINT" property="bloodTypeId" />
+    <result column="Stock_Quantity" jdbcType="DECIMAL" property="stockQuantity" />
+    <result column="Safe_Stock" jdbcType="DECIMAL" property="safeStock" />
+    <result column="max_stock" jdbcType="DECIMAL" property="maxStock" />
+    <result column="role_Id" jdbcType="BIGINT" property="roleId" />
+    <result column="user_Name" jdbcType="VARCHAR" property="userName" />
+    <result column="type1" jdbcType="VARCHAR" property="type1" />
+    <result column="type2" jdbcType="VARCHAR" property="type2" />
+  </resultMap>
+  <sql id="Base_Column_List">
+  	Blood_Stock_Id,user_id,blood_type_id,Stock_Quantity,Safe_Stock,max_stock,role_Id,
+  	user_Name,type1,type2
+  </sql>
+  <select id="getStockList" resultMap="BaseResultMap">
+    select 
+  	<include refid="Base_Column_List" />
+  	from v_stock_user
+  </select>
+  <select id="getStockListByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+  	<include refid="Base_Column_List" />
+  	from v_stock_user where user_id=#{userId,jdbcType=BIGINT}
+  </select>
+  <select id="getHospitalStockByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from v_stock_user
+  	where role_Id = 2 and user_id= #{userId,jdbcType=BIGINT}
+  </select>
+   <select id="getBloodLibStockByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from v_stock_user
+  	where role_Id = 3 and user_id= #{userId,jdbcType=BIGINT}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from v_stock_user
+  	where Blood_Stock_Id = #{bloodStockId,jdbcType=BIGINT}
+  </select>  
+</mapper>

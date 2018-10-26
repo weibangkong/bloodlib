@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bloodlib.framework.mapper.ProvincialMapper">
+  <resultMap id="BaseResultMap" type="com.bloodlib.framework.model.Provincial">
+    <id column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="Provincial" jdbcType="VARCHAR" property="provincial" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pid, Provincial
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from provincial
+    where pid = #{pid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from provincial
+    where pid = #{pid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bloodlib.framework.model.Provincial">
+    insert into provincial (pid, Provincial)
+    values (#{pid,jdbcType=BIGINT}, #{provincial,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bloodlib.framework.model.Provincial">
+    insert into provincial
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="provincial != null">
+        Provincial,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pid != null">
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="provincial != null">
+        #{provincial,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bloodlib.framework.model.Provincial">
+    update provincial
+    <set>
+      <if test="provincial != null">
+        Provincial = #{provincial,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pid = #{pid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bloodlib.framework.model.Provincial">
+    update provincial
+    set Provincial = #{provincial,jdbcType=VARCHAR}
+    where pid = #{pid,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getProList" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List"/>
+  	from Provincial
+  </select>
+</mapper>

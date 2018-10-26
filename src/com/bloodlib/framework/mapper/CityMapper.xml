@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bloodlib.framework.mapper.CityMapper">
+  <resultMap id="BaseResultMap" type="com.bloodlib.framework.model.City">
+    <id column="cid" jdbcType="BIGINT" property="cid" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cid, city, pid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from city
+    where cid = #{cid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from city
+    where cid = #{cid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bloodlib.framework.model.City">
+    insert into city (cid, city, pid)
+    values (#{cid,jdbcType=BIGINT}, #{city,jdbcType=VARCHAR}, #{pid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bloodlib.framework.model.City">
+    insert into city
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cid != null">
+        cid,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cid != null">
+        #{cid,jdbcType=BIGINT},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bloodlib.framework.model.City">
+    update city
+    <set>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bloodlib.framework.model.City">
+    update city
+    set city = #{city,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=BIGINT}
+    where cid = #{cid,jdbcType=BIGINT}
+  </update>
+  <select id="getCityByPid" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List"/>
+  	from City where pid = #{pid,jdbcType=BIGINT}
+  </select>
+</mapper>

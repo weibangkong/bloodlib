@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bloodlib.framework.mapper.NewsMapper">
+  <resultMap id="BaseResultMap" type="com.bloodlib.framework.model.News">
+    <id column="News_Id" jdbcType="BIGINT" property="newsId" />
+    <result column="News_Title" jdbcType="VARCHAR" property="newsTitle" />
+    <result column="Simple_Text" jdbcType="VARCHAR" property="simpleText" />
+    <result column="Simple_Image_Id" jdbcType="BIGINT" property="simpleImageId" />
+    <result column="Simple_Image_Path" jdbcType="VARCHAR" property="simpleImagePath" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    News_Id, News_Title, Simple_Text, Simple_Image_Id, Simple_Image_Path
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from news
+    where News_Id = #{newsId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from news
+    where News_Id = #{newsId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bloodlib.framework.model.News">
+    insert into news (News_Id, News_Title, Simple_Text, 
+      Simple_Image_Id, Simple_Image_Path)
+    values (#{newsId,jdbcType=BIGINT}, #{newsTitle,jdbcType=VARCHAR}, #{simpleText,jdbcType=VARCHAR}, 
+      #{simpleImageId,jdbcType=BIGINT}, #{simpleImagePath,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bloodlib.framework.model.News">
+    insert into news
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="newsId != null">
+        News_Id,
+      </if>
+      <if test="newsTitle != null">
+        News_Title,
+      </if>
+      <if test="simpleText != null">
+        Simple_Text,
+      </if>
+      <if test="simpleImageId != null">
+        Simple_Image_Id,
+      </if>
+      <if test="simpleImagePath != null">
+        Simple_Image_Path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="newsId != null">
+        #{newsId,jdbcType=BIGINT},
+      </if>
+      <if test="newsTitle != null">
+        #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleText != null">
+        #{simpleText,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleImageId != null">
+        #{simpleImageId,jdbcType=BIGINT},
+      </if>
+      <if test="simpleImagePath != null">
+        #{simpleImagePath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bloodlib.framework.model.News">
+    update news
+    <set>
+      <if test="newsTitle != null">
+        News_Title = #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleText != null">
+        Simple_Text = #{simpleText,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleImageId != null">
+        Simple_Image_Id = #{simpleImageId,jdbcType=BIGINT},
+      </if>
+      <if test="simpleImagePath != null">
+        Simple_Image_Path = #{simpleImagePath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where News_Id = #{newsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bloodlib.framework.model.News">
+    update news
+    set News_Title = #{newsTitle,jdbcType=VARCHAR},
+      Simple_Text = #{simpleText,jdbcType=VARCHAR},
+      Simple_Image_Id = #{simpleImageId,jdbcType=BIGINT},
+      Simple_Image_Path = #{simpleImagePath,jdbcType=VARCHAR}
+    where News_Id = #{newsId,jdbcType=BIGINT}
+  </update>
+  <select id="getNewsList" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List"/>
+  	from news
+  </select>
+</mapper>

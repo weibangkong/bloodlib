@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bloodlib.workflow.mapper.BloodStockMapper">
+  <resultMap id="BaseResultMap" type="com.bloodlib.workflow.model.BloodStock">
+    <id column="Blood_Stock_Id" jdbcType="BIGINT" property="bloodStockId" />
+    <result column="User_Id" jdbcType="BIGINT" property="userId" />
+    <result column="Blood_Type_Id" jdbcType="BIGINT" property="bloodTypeId" />
+    <result column="Stock_Quantity" jdbcType="DECIMAL" property="stockQuantity" />
+    <result column="Safe_Stock" jdbcType="DECIMAL" property="safeStock" />
+    <result column="Max_Stock" jdbcType="DECIMAL" property="maxStock" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Blood_Stock_Id, User_Id, Blood_Type_Id, Stock_Quantity, Safe_Stock, Max_Stock
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blood_stock
+    where Blood_Stock_Id = #{bloodStockId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from blood_stock
+    where Blood_Stock_Id = #{bloodStockId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bloodlib.workflow.model.BloodStock">
+    insert into blood_stock (Blood_Stock_Id, User_Id, Blood_Type_Id, 
+      Stock_Quantity, Safe_Stock, Max_Stock
+      )
+    values (#{bloodStockId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{bloodTypeId,jdbcType=BIGINT}, 
+      #{stockQuantity,jdbcType=DECIMAL}, #{safeStock,jdbcType=DECIMAL}, #{maxStock,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bloodlib.workflow.model.BloodStock">
+    insert into blood_stock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bloodStockId != null">
+        Blood_Stock_Id,
+      </if>
+      <if test="userId != null">
+        User_Id,
+      </if>
+      <if test="bloodTypeId != null">
+        Blood_Type_Id,
+      </if>
+      <if test="stockQuantity != null">
+        Stock_Quantity,
+      </if>
+      <if test="safeStock != null">
+        Safe_Stock,
+      </if>
+      <if test="maxStock != null">
+        Max_Stock,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bloodStockId != null">
+        #{bloodStockId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="bloodTypeId != null">
+        #{bloodTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="stockQuantity != null">
+        #{stockQuantity,jdbcType=DECIMAL},
+      </if>
+      <if test="safeStock != null">
+        #{safeStock,jdbcType=DECIMAL},
+      </if>
+      <if test="maxStock != null">
+        #{maxStock,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bloodlib.workflow.model.BloodStock">
+    update blood_stock
+    <set>
+      <if test="userId != null">
+        User_Id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="bloodTypeId != null">
+        Blood_Type_Id = #{bloodTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="stockQuantity != null">
+        Stock_Quantity = #{stockQuantity,jdbcType=DECIMAL},
+      </if>
+      <if test="safeStock != null">
+        Safe_Stock = #{safeStock,jdbcType=DECIMAL},
+      </if>
+      <if test="maxStock != null">
+        Max_Stock = #{maxStock,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where Blood_Stock_Id = #{bloodStockId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bloodlib.workflow.model.BloodStock">
+    update blood_stock
+    set User_Id = #{userId,jdbcType=BIGINT},
+      Blood_Type_Id = #{bloodTypeId,jdbcType=BIGINT},
+      Stock_Quantity = #{stockQuantity,jdbcType=DECIMAL},
+      Safe_Stock = #{safeStock,jdbcType=DECIMAL},
+      Max_Stock = #{maxStock,jdbcType=DECIMAL}
+    where Blood_Stock_Id = #{bloodStockId,jdbcType=BIGINT}
+  </update>
+  <delete id="deleteByUserId" parameterType="java.lang.Long">
+  	delete from blood_stock
+  	where User_Id ={userId,jdbcType=BIGINT}
+  </delete>
+  
+  <select id="getListByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List"/>
+    from blood_stock
+    where User_Id = #{userId,jdbcType=BIGINT}
+  </select>
+  
+  <select id="getCountByUserIdAndBTId" parameterType="java.lang.Long" resultType="java.lang.Long">
+  	select count(1) from blood_stock
+  	where User_Id = #{0} and Blood_Type_Id = #{1}
+  </select>
+  <select id="getStockInfoByUserIdAndBTId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List"/>
+  	from blood_stock
+  	where User_Id = #{0} and Blood_Type_Id = #{1}
+  </select>
+</mapper>

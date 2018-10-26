@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bloodlib.workflow.mapper.DonateBloodMapper">
+  <resultMap id="BaseResultMap" type="com.bloodlib.workflow.model.DonateBlood">
+    <id column="Donate_Id" jdbcType="BIGINT" property="donateId" />
+    <result column="User_Id" jdbcType="BIGINT" property="userId" />
+    <result column="Blood_Type_Id" jdbcType="BIGINT" property="bloodTypeId" />
+    <result column="quantity" jdbcType="DECIMAL" property="quantity" />
+    <result column="donate_hos" jdbcType="BIGINT" property="donateHos" />
+    <result column="donate_date" jdbcType="TIMESTAMP" property="donateDate" />
+    <result column="IsAccepted" jdbcType="INTEGER" property="isaccepted" />
+    <result column="Certificate_Code" jdbcType="VARCHAR" property="certificateCode" />
+    <result column="Donateer" jdbcType="VARCHAR" property="donateer" />
+    <result column="Tel" jdbcType="VARCHAR" property="tel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Donate_Id, User_Id, Blood_Type_Id, quantity, donate_hos, donate_date, IsAccepted, 
+    Certificate_Code, Donateer, Tel
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from donate_blood
+    where Donate_Id = #{donateId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from donate_blood
+    where Donate_Id = #{donateId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bloodlib.workflow.model.DonateBlood">
+    insert into donate_blood (Donate_Id, User_Id, Blood_Type_Id, 
+      quantity, donate_hos, donate_date, 
+      IsAccepted, Certificate_Code, Donateer, 
+      Tel)
+    values (#{donateId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{bloodTypeId,jdbcType=BIGINT}, 
+      #{quantity,jdbcType=DECIMAL}, #{donateHos,jdbcType=BIGINT}, #{donateDate,jdbcType=TIMESTAMP}, 
+      #{isaccepted,jdbcType=INTEGER}, #{certificateCode,jdbcType=VARCHAR}, #{donateer,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bloodlib.workflow.model.DonateBlood">
+    insert into donate_blood
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="donateId != null">
+        Donate_Id,
+      </if>
+      <if test="userId != null">
+        User_Id,
+      </if>
+      <if test="bloodTypeId != null">
+        Blood_Type_Id,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="donateHos != null">
+        donate_hos,
+      </if>
+      <if test="donateDate != null">
+        donate_date,
+      </if>
+      <if test="isaccepted != null">
+        IsAccepted,
+      </if>
+      <if test="certificateCode != null">
+        Certificate_Code,
+      </if>
+      <if test="donateer != null">
+        Donateer,
+      </if>
+      <if test="tel != null">
+        Tel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="donateId != null">
+        #{donateId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="bloodTypeId != null">
+        #{bloodTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=DECIMAL},
+      </if>
+      <if test="donateHos != null">
+        #{donateHos,jdbcType=BIGINT},
+      </if>
+      <if test="donateDate != null">
+        #{donateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isaccepted != null">
+        #{isaccepted,jdbcType=INTEGER},
+      </if>
+      <if test="certificateCode != null">
+        #{certificateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="donateer != null">
+        #{donateer,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bloodlib.workflow.model.DonateBlood">
+    update donate_blood
+    <set>
+      <if test="userId != null">
+        User_Id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="bloodTypeId != null">
+        Blood_Type_Id = #{bloodTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=DECIMAL},
+      </if>
+      <if test="donateHos != null">
+        donate_hos = #{donateHos,jdbcType=BIGINT},
+      </if>
+      <if test="donateDate != null">
+        donate_date = #{donateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isaccepted != null">
+        IsAccepted = #{isaccepted,jdbcType=INTEGER},
+      </if>
+      <if test="certificateCode != null">
+        Certificate_Code = #{certificateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="donateer != null">
+        Donateer = #{donateer,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        Tel = #{tel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Donate_Id = #{donateId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bloodlib.workflow.model.DonateBlood">
+    update donate_blood
+    set User_Id = #{userId,jdbcType=BIGINT},
+      Blood_Type_Id = #{bloodTypeId,jdbcType=BIGINT},
+      quantity = #{quantity,jdbcType=DECIMAL},
+      donate_hos = #{donateHos,jdbcType=BIGINT},
+      donate_date = #{donateDate,jdbcType=TIMESTAMP},
+      IsAccepted = #{isaccepted,jdbcType=INTEGER},
+      Certificate_Code = #{certificateCode,jdbcType=VARCHAR},
+      Donateer = #{donateer,jdbcType=VARCHAR},
+      Tel = #{tel,jdbcType=VARCHAR}
+    where Donate_Id = #{donateId,jdbcType=BIGINT}
+  </update>
+  <select id="getList" resultMap="BaseResultMap">
+  	 select 
+    <include refid="Base_Column_List" />
+    from donate_blood
+  </select>
+  <update id="updateIsAccept" parameterType="java.lang.Long">
+  	update donate_blood
+  	set IsAccepted = 1
+  	where Donate_Id = #{donateId,jdbcType=BIGINT}
+  </update>
+   <update id="updateNoAccept" parameterType="java.lang.Long">
+  	update donate_blood
+  	set IsAccepted = 2
+  	where Donate_Id = #{donateId,jdbcType=BIGINT}
+  </update>
+</mapper>

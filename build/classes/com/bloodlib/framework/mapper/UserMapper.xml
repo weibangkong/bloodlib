@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bloodlib.framework.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.bloodlib.framework.model.User">
+    <id column="User_Id" jdbcType="BIGINT" property="userId" />
+    <result column="User_Name" jdbcType="VARCHAR" property="userName" />
+    <result column="Home_Address" jdbcType="VARCHAR" property="homeAddress" />
+    <result column="identity_Card" jdbcType="VARCHAR" property="identityCard" />
+    <result column="Tel" jdbcType="VARCHAR" property="tel" />
+    <result column="EMail" jdbcType="VARCHAR" property="email" />
+    <result column="Sex" jdbcType="INTEGER" property="sex" />
+    <result column="Area_Id" jdbcType="BIGINT" property="areaId" />
+    <result column="Login_Name" jdbcType="VARCHAR" property="loginName" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="Role_Id" jdbcType="BIGINT" property="roleId" />
+    <result column="Certificate_Type" jdbcType="INTEGER" property="certificateType" />
+    <result column="Certificate_Code" jdbcType="VARCHAR" property="certificateCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    User_Id, User_Name, Home_Address, identity_Card, Tel, EMail, Sex, Area_Id, Login_Name, 
+    Password, Role_Id, Certificate_Type, Certificate_Code
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where User_Id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user
+    where User_Id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bloodlib.framework.model.User">
+    insert into user (User_Id, User_Name, Home_Address, 
+      identity_Card, Tel, EMail, 
+      Sex, Area_Id, Login_Name, 
+      Password, Role_Id, Certificate_Type, 
+      Certificate_Code)
+    values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{homeAddress,jdbcType=VARCHAR}, 
+      #{identityCard,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=INTEGER}, #{areaId,jdbcType=BIGINT}, #{loginName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{roleId,jdbcType=BIGINT}, #{certificateType,jdbcType=INTEGER}, 
+      #{certificateCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bloodlib.framework.model.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        User_Id,
+      </if>
+      <if test="userName != null">
+        User_Name,
+      </if>
+      <if test="homeAddress != null">
+        Home_Address,
+      </if>
+      <if test="identityCard != null">
+        identity_Card,
+      </if>
+      <if test="tel != null">
+        Tel,
+      </if>
+      <if test="email != null">
+        EMail,
+      </if>
+      <if test="sex != null">
+        Sex,
+      </if>
+      <if test="areaId != null">
+        Area_Id,
+      </if>
+      <if test="loginName != null">
+        Login_Name,
+      </if>
+      <if test="password != null">
+        Password,
+      </if>
+      <if test="roleId != null">
+        Role_Id,
+      </if>
+      <if test="certificateType != null">
+        Certificate_Type,
+      </if>
+      <if test="certificateCode != null">
+        Certificate_Code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null">
+        #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="identityCard != null">
+        #{identityCard,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="areaId != null">
+        #{areaId,jdbcType=BIGINT},
+      </if>
+      <if test="loginName != null">
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="certificateType != null">
+        #{certificateType,jdbcType=INTEGER},
+      </if>
+      <if test="certificateCode != null">
+        #{certificateCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bloodlib.framework.model.User">
+    update user
+    <set>
+      <if test="userName != null">
+        User_Name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null">
+        Home_Address = #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="identityCard != null">
+        identity_Card = #{identityCard,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        Tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        EMail = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        Sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="areaId != null">
+        Area_Id = #{areaId,jdbcType=BIGINT},
+      </if>
+      <if test="loginName != null">
+        Login_Name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        Role_Id = #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="certificateType != null">
+        Certificate_Type = #{certificateType,jdbcType=INTEGER},
+      </if>
+      <if test="certificateCode != null">
+        Certificate_Code = #{certificateCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where User_Id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bloodlib.framework.model.User">
+    update user
+    set User_Name = #{userName,jdbcType=VARCHAR},
+      Home_Address = #{homeAddress,jdbcType=VARCHAR},
+      identity_Card = #{identityCard,jdbcType=VARCHAR},
+      Tel = #{tel,jdbcType=VARCHAR},
+      EMail = #{email,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=INTEGER},
+      Area_Id = #{areaId,jdbcType=BIGINT},
+      Login_Name = #{loginName,jdbcType=VARCHAR},
+      Password = #{password,jdbcType=VARCHAR},
+      Role_Id = #{roleId,jdbcType=BIGINT},
+      Certificate_Type = #{certificateType,jdbcType=INTEGER},
+      Certificate_Code = #{certificateCode,jdbcType=VARCHAR}
+    where User_Id = #{userId,jdbcType=BIGINT}
+  </update>
+   <select id="loginQuery" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from user where Login_Name = #{0} and Password = #{1}
+  </select>
+  <select id="getUserList" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from user where role_Id>0
+  </select>
+  <select id="getMaxID" resultType="java.lang.Long">
+  	select max(user_Id) from user
+  </select>
+  <select id="getUserCountByLoginName" parameterType="java.lang.String" resultType="java.lang.Long">
+  select count(1) from user
+  where login_Name= #{loginName,jdbcType=VARCHAR}
+  </select>
+ <!--  
+  <select id="getUnformalUserList" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  select 
+  <include refid="Base_Column_List" />
+  	from user where role_Id = -1 limit #{0} , #{1}
+  </select> -->
+  
+   <select id="getUnformalUserList" resultMap="BaseResultMap">
+  select 
+  <include refid="Base_Column_List" />
+  	from user where role_Id = -1
+  </select>
+  
+  <select id="getCountByRoleId" parameterType="java.lang.Long" resultType="java.lang.Long">
+  select count(1) from user where role_Id= #{roleId,jdbcType=BIGINT}
+  </select>
+  
+  <select id="getCountHospitalAndBloodlib" resultType="java.lang.Long">
+  select count(1) from user where role_Id IN (2,3)
+  </select>
+  
+  <select id="getHospitals" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	where roleId = 2 and area_Id= #{areaId,jdbcType=BIGINT}
+  </select>
+</mapper>

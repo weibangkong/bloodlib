@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bloodlib.workflow.mapper.VNbUserBtMapper">
+  <resultMap id="BaseResultMap" type="com.bloodlib.workflow.model.VNbUserBt">
+    <result column="Need_Blood_Id" jdbcType="BIGINT" property="needBloodId" />
+    <result column="User_Id" jdbcType="BIGINT" property="userId" />
+    <result column="Blood_Type_Id" jdbcType="BIGINT" property="bloodTypeId" />
+    <result column="Quantity" jdbcType="DECIMAL" property="quantity" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="Area_Id" jdbcType="BIGINT" property="areaId" />
+    <result column="IsReceived" jdbcType="INTEGER" property="isreceived" />
+    <result column="Need_Blood_Person" jdbcType="VARCHAR" property="needBloodPerson" />
+    <result column="Hospital_Id" jdbcType="BIGINT" property="hospitalId" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="areaName" jdbcType="VARCHAR" property="areaname" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="Certificate_Type" jdbcType="INTEGER" property="certificateType" />
+    <result column="Certificate_Code" jdbcType="VARCHAR" property="certificateCode" />
+    <result column="type1" jdbcType="VARCHAR" property="type1" />
+    <result column="type2" jdbcType="VARCHAR" property="type2" />
+    <result column="Hospital_Name" jdbcType="VARCHAR" property="hospitalName" />
+  </resultMap>
+   <sql id="Base_Column_List">
+   	Need_Blood_Id, User_Id, Blood_Type_Id, Quantity, remark, Area_Id, IsReceived,
+    Need_Blood_Person, Hospital_Id,create_date,areaName,operator, tel,
+    Certificate_Type, Certificate_Code, type1, type2, Hospital_Name
+  </sql>
+  <select id="getNeedBloodListNoReceived" resultMap="BaseResultMap">
+  select 
+  <include refid="Base_Column_List" />
+  from v_nb_user_bt  
+  where isreceived = 0
+  </select> 
+  <select id="getNeedBloodListHasReceived" resultMap="BaseResultMap">
+  select 
+  <include refid="Base_Column_List" />
+  from v_nb_user_bt  
+  where isreceived = 1
+  </select> 
+  <select id="selectNeedBloodInfoByNBID" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from v_nb_user_bt  
+  	where Need_Blood_Id = #{nbid,jdbcType=BIGINT}
+  </select>
+ <select id="getNeedBloodListByBTtypeAndAreaId" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from v_nb_user_bt
+  	where AreaId=#{areaId,jdbcType=BIGINT} and type1 in
+  	<foreach close=")" collection="typelist" index="index" item="type" open="(" separator=",">
+  		#{type,jdbcType=VARCHAR}
+  	</foreach>
+ </select>
+ <select id="getMyNeedBloodListHasReceived" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  select 
+  <include refid="Base_Column_List" />
+  from v_nb_user_bt  
+  where isreceived = 1 and User_Id = #{userId,jdbcType=BIGINT}
+ </select> 
+ 
+ <select id="getMyNeedBloodListNoReceived" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  select 
+  <include refid="Base_Column_List" />
+  from v_nb_user_bt  
+  where isreceived = 0 and User_Id = #{userId,jdbcType=BIGINT}
+ </select> 
+ 
+ <select id="getlistOrderByReceived" parameterType="java.lang.Long" resultMap="BaseResultMap">
+ select 
+  <include refid="Base_Column_List" />
+  from v_nb_user_bt  
+  where  User_Id = #{userId,jdbcType=BIGINT}
+  order by isreceived
+ </select>
+ 
+ <select id="getCountByUserIdAndBTId" parameterType="java.lang.Long" resultType="java.lang.Long">
+  select count(1) from v_nb_user_bt where isreceived = 0 
+  and User_Id = #{0} and Blood_Type_Id = #{1}
+ </select>
+</mapper>

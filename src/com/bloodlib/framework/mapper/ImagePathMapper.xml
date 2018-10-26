@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bloodlib.framework.mapper.ImagePathMapper">
+  <resultMap id="BaseResultMap" type="com.bloodlib.framework.model.ImagePath">
+    <id column="Image_Id" jdbcType="BIGINT" property="imageId" />
+    <result column="News_Id" jdbcType="BIGINT" property="newsId" />
+    <result column="Image_Path" jdbcType="VARCHAR" property="imagePath" />
+    <result column="File_Name" jdbcType="VARCHAR" property="fileName" />
+    <result column="Complete_Path" jdbcType="VARCHAR" property="completePath" />
+    <result column="Image_Text" jdbcType="VARCHAR" property="imageText" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+    <result column="Image_No" jdbcType="INTEGER" property="imageNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Image_Id, News_Id, Image_Path, File_Name, Complete_Path, Image_Text, Remark, Image_No
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from image_path
+    where Image_Id = #{imageId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from image_path
+    where Image_Id = #{imageId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bloodlib.framework.model.ImagePath">
+    insert into image_path (Image_Id, News_Id, Image_Path, 
+      File_Name, Complete_Path, Image_Text, 
+      Remark, Image_No)
+    values (#{imageId,jdbcType=BIGINT}, #{newsId,jdbcType=BIGINT}, #{imagePath,jdbcType=VARCHAR}, 
+      #{fileName,jdbcType=VARCHAR}, #{completePath,jdbcType=VARCHAR}, #{imageText,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{imageNo,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bloodlib.framework.model.ImagePath">
+    insert into image_path
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="imageId != null">
+        Image_Id,
+      </if>
+      <if test="newsId != null">
+        News_Id,
+      </if>
+      <if test="imagePath != null">
+        Image_Path,
+      </if>
+      <if test="fileName != null">
+        File_Name,
+      </if>
+      <if test="completePath != null">
+        Complete_Path,
+      </if>
+      <if test="imageText != null">
+        Image_Text,
+      </if>
+      <if test="remark != null">
+        Remark,
+      </if>
+      <if test="imageNo != null">
+        Image_No,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="imageId != null">
+        #{imageId,jdbcType=BIGINT},
+      </if>
+      <if test="newsId != null">
+        #{newsId,jdbcType=BIGINT},
+      </if>
+      <if test="imagePath != null">
+        #{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="completePath != null">
+        #{completePath,jdbcType=VARCHAR},
+      </if>
+      <if test="imageText != null">
+        #{imageText,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="imageNo != null">
+        #{imageNo,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bloodlib.framework.model.ImagePath">
+    update image_path
+    <set>
+      <if test="newsId != null">
+        News_Id = #{newsId,jdbcType=BIGINT},
+      </if>
+      <if test="imagePath != null">
+        Image_Path = #{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        File_Name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="completePath != null">
+        Complete_Path = #{completePath,jdbcType=VARCHAR},
+      </if>
+      <if test="imageText != null">
+        Image_Text = #{imageText,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="imageNo != null">
+        Image_No = #{imageNo,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Image_Id = #{imageId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bloodlib.framework.model.ImagePath">
+    update image_path
+    set News_Id = #{newsId,jdbcType=BIGINT},
+      Image_Path = #{imagePath,jdbcType=VARCHAR},
+      File_Name = #{fileName,jdbcType=VARCHAR},
+      Complete_Path = #{completePath,jdbcType=VARCHAR},
+      Image_Text = #{imageText,jdbcType=VARCHAR},
+      Remark = #{remark,jdbcType=VARCHAR},
+      Image_No = #{imageNo,jdbcType=INTEGER}
+    where Image_Id = #{imageId,jdbcType=BIGINT}
+  </update>
+   <select id="getIMGListByNewsId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List"/>
+  	from imagePath
+  	where news_Id = #{newsId,jdbcType=BIGINT}
+  </select>
+</mapper>

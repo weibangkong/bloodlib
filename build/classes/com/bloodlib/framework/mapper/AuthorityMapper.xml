@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bloodlib.framework.mapper.AuthorityMapper">
+  <resultMap id="BaseResultMap" type="com.bloodlib.framework.model.Authority">
+    <id column="Authority_Id" jdbcType="BIGINT" property="authorityId" />
+    <result column="Authority_Name" jdbcType="VARCHAR" property="authorityName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Authority_Id, Authority_Name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from authority
+    where Authority_Id = #{authorityId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from authority
+    where Authority_Id = #{authorityId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bloodlib.framework.model.Authority">
+    insert into authority (Authority_Id, Authority_Name)
+    values (#{authorityId,jdbcType=BIGINT}, #{authorityName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bloodlib.framework.model.Authority">
+    insert into authority
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="authorityId != null">
+        Authority_Id,
+      </if>
+      <if test="authorityName != null">
+        Authority_Name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="authorityId != null">
+        #{authorityId,jdbcType=BIGINT},
+      </if>
+      <if test="authorityName != null">
+        #{authorityName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bloodlib.framework.model.Authority">
+    update authority
+    <set>
+      <if test="authorityName != null">
+        Authority_Name = #{authorityName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Authority_Id = #{authorityId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bloodlib.framework.model.Authority">
+    update authority
+    set Authority_Name = #{authorityName,jdbcType=VARCHAR}
+    where Authority_Id = #{authorityId,jdbcType=BIGINT}
+  </update>
+
+</mapper>
